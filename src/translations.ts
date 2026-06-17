@@ -1,0 +1,40 @@
+export const translations = {
+  en: {
+    contactUs: "Contact Us",
+    firstName: "First Name",
+    lastName: "Last Name",
+    emailAddress: "Email Address",
+    queryType: "Query Type",
+    generalEnquiry: "General Enquiry",
+    supportRequest: "Support Request",
+    message: "Message",
+    consent: "I consent to being contacted by the team",
+    submit: "Submit",
+    requiredField: "This field is required",
+    invalidEmail: "Please enter a valid email address",
+    selectQuery: "Please select a query type",
+    consentRequired: "To submit this form, please consent to being contacted",
+    messageSent: "Message Sent!",
+    thanks: "Thanks for completing the form. We'll be in touch soon!",
+  },
+  es: {
+    contactUs: "Contáctanos",
+    firstName: "Nombre",
+    lastName: "Apellido",
+    emailAddress: "Correo Electrónico",
+    queryType: "Tipo de Consulta",
+    generalEnquiry: "Consulta General",
+    supportRequest: "Solicitud de Soporte",
+    message: "Mensaje",
+    consent: "Acepto ser contactado por el equipo",
+    submit: "Enviar",
+    requiredField: "Este campo es obligatorio",
+    invalidEmail: "Por favor, introduce una dirección de correo válida",
+    selectQuery: "Por favor, selecciona un tipo de consulta",
+    consentRequired: "Para enviar este formulario, debes aceptar ser contactado",
+    messageSent: "¡Mensaje Enviado!",
+    thanks: "Gracias por completar el formulario. ¡Nos pondremos en contacto pronto!",
+  }
+}
+
+export type Language = 'en' | 'es';

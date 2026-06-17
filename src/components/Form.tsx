@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useForm } from "../hooks/useForm"
 import type { FormErrors, FormType } from "../types"
 import Alert from "./Alert"
+import { useLanguage } from "../context/LanguageContext"
 
 const initialValues: FormType = {
     firstName: "",
@@ -15,21 +16,22 @@ const initialValues: FormType = {
 export default function Form() {
 
     const [alert, setAlert] = useState(false)
+    const { t } = useLanguage();
 
     const validateRules = (formData: FormType) => {
         const newErrors: FormErrors = {}
-        if (!formData.firstName.trim()) newErrors.firstName = "This field is required"
-        if (!formData.lastName.trim()) newErrors.lastName = "This field is required"
+        if (!formData.firstName.trim()) newErrors.firstName = t('requiredField')
+        if (!formData.lastName.trim()) newErrors.lastName = t('requiredField')
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!formData.email.trim()) newErrors.email = "This field is required"
-        else if (!emailRegex.test(formData.email)) newErrors.email = "Please enter a valid email address"
+        if (!formData.email.trim()) newErrors.email = t('requiredField')
+        else if (!emailRegex.test(formData.email)) newErrors.email = t('invalidEmail')
 
-        if (!formData.query) newErrors.query = "Please select a query type"
+        if (!formData.query) newErrors.query = t('selectQuery')
 
-        if (!formData.message.trim()) newErrors.message = "This field is required"
+        if (!formData.message.trim()) newErrors.message = t('requiredField')
 
-        if (!formData.consent) newErrors.consent = "To submit this form, please consent to being contacted"
+        if (!formData.consent) newErrors.consent = t('consentRequired')
 
         return newErrors
 
@@ -58,7 +60,7 @@ export default function Form() {
                 className="w-full max-w-182.5 bg-white p-6 sm:p-10 rounded-2xl shadow-sm text-grey-900 flex flex-col gap-6"
             >
                 <h1 className="text-[32px] font-bold text-grey-900 tracking-tight leading-none mb-2">
-                    Contact Us
+                    {t('contactUs')}
                 </h1>
 
                 {/* Name Fields (First Name & Last Name) */}
@@ -68,7 +70,7 @@ export default function Form() {
                             htmlFor="first-name"
                             className="block text-sm text-grey-900 mb-2 cursor-pointer"
                         >
-                            First Name <span className={errors.firstName ? "text-red" : "text-green-600"}>*</span>
+                            {t('firstName')} <span className={errors.firstName ? "text-red" : "text-green-600"}>*</span>
                         </label>
                         <input
                             type="text"
@@ -87,7 +89,7 @@ export default function Form() {
                             htmlFor="last-name"
                             className="block text-sm text-grey-900 mb-2 cursor-pointer"
                         >
-                            Last Name <span className={errors.lastName ? "text-red" : "text-green-600"}>*</span>
+                            {t('lastName')} <span className={errors.lastName ? "text-red" : "text-green-600"}>*</span>
                         </label>
                         <input
                             type="text"
@@ -108,7 +110,7 @@ export default function Form() {
                         htmlFor="email"
                         className="block text-sm text-grey-900 mb-2 cursor-pointer"
                     >
-                        Email Address <span className={errors.email ? "text-red" : "text-green-600"}>*</span>
+                        {t('emailAddress')} <span className={errors.email ? "text-red" : "text-green-600"}>*</span>
                     </label>
                     <input
                         type="text"
@@ -125,7 +127,7 @@ export default function Form() {
                 {/* Query Type */}
                 <fieldset className="border-none p-0 m-0">
                     <legend className="block text-sm text-grey-900 mb-3 font-normal">
-                        Query Type <span className={errors.query ? "text-red" : "text-green-600"}>*</span>
+                        {t('queryType')} <span className={errors.query ? "text-red" : "text-green-600"}>*</span>
                     </legend>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <label
@@ -144,7 +146,7 @@ export default function Form() {
                                 onChange={handleChange}
                                 className="accent-green-600 h-5 w-5 cursor-pointer"
                             />
-                            <span className="text-grey-900 font-normal select-none">General Enquiry</span>
+                            <span className="text-grey-900 font-normal select-none">{t('generalEnquiry')}</span>
                         </label>
 
                         <label
@@ -163,7 +165,7 @@ export default function Form() {
                                 onChange={handleChange}
                                 className="accent-green-600 h-5 w-5 cursor-pointer"
                             />
-                            <span className="text-grey-900 font-normal select-none">Support Request</span>
+                            <span className="text-grey-900 font-normal select-none">{t('supportRequest')}</span>
                         </label>
                     </div>
                     {errors.query && <p className="text-red text-sm mt-2 font-normal">{errors.query}</p>}
@@ -175,7 +177,7 @@ export default function Form() {
                         htmlFor="message"
                         className="block text-sm text-grey-900 mb-2 cursor-pointer"
                     >
-                        Message <span className={errors.message ? "text-red" : "text-green-600"}>*</span>
+                        {t('message')} <span className={errors.message ? "text-red" : "text-green-600"}>*</span>
                     </label>
                     <textarea
                         name="message"
@@ -203,7 +205,7 @@ export default function Form() {
                             htmlFor="consent"
                             className="text-sm text-grey-900 select-none cursor-pointer leading-normal"
                         >
-                            I consent to being contacted by the team <span className={errors.consent ? "text-red" : "text-green-600"}>*</span>
+                            {t('consent')} <span className={errors.consent ? "text-red" : "text-green-600"}>*</span>
                         </label>
                     </div>
                     {errors.consent && <p className="text-red text-sm mt-1 font-normal">{errors.consent}</p>}
@@ -214,7 +216,7 @@ export default function Form() {
                     type="submit"
                     className="w-full py-4 mt-2 bg-green-600 text-white font-bold rounded-lg hover:bg-[#064e43] active:scale-[0.98] transition-all duration-200 text-base cursor-pointer shadow-sm"
                 >
-                    Submit
+                    {t('submit')}
                 </button>
             </form>
             {alert && <Alert onClose={() => setAlert(false)} />}
